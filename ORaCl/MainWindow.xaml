@@ -1,0 +1,65 @@
+﻿<Window x:Class="ORaCl.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:ORaCl"
+        xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        MinWidth="105"
+        MinHeight="35"
+        ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <Style x:Key="TestStyle" TargetType="{x:Type local:MainWindow}">
+            <Setter Property="shell:WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <shell:WindowChrome GlassFrameThickness="5" CaptionHeight="40" CornerRadius="30"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type local:MainWindow}">
+                        <Grid Margin="5">
+                            <!-- This is the ContentPresenter that displays the window content. -->
+                            <Border Margin="5,40,5,5">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Opacity="0.01" Color="White"/>
+                                </Border.BorderBrush>
+                                <ContentPresenter Content="{TemplateBinding Content}"/>
+                            </Border>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">                            
+                                <!-- Window Border Content -->
+                                <!-- System Button -->
+                                <Button Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(shell:WindowChrome.WindowChrome).ResizeBorderThickness}" shell:WindowChrome.IsHitTestVisibleInChrome="True" Command="{x:Static shell:SystemCommands.ShowSystemMenuCommand}" CommandParameter="{Binding ElementName=CalcWindow}">
+                                    <Image Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Icon}" Width="16" Height="16" shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+                                </Button>
+                                <!-- Window Title -->
+                                <TextBlock VerticalAlignment="Center" TextAlignment="Left" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}" />
+                            </StackPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Window.Background>
+        <SolidColorBrush Opacity="0.01" Color="White"/>
+    </Window.Background>
+    <Grid>
+        <Grid VerticalAlignment="Top" Background="White" Name="TitleBar" Height="35">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="CodeBraces" Margin="10" Name="Icon"/>
+                <Label FontFamily="MS Calibri" Content="ORaCl Command Window" FontWeight="ExtraLight" Name="Title" FontSize="18" Margin="-4,3,0,3" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Name="WindowControls">
+                <Button Style="{DynamicResource MaterialDesignFlatButton}" Height="35" Width="35" Content="{materialDesign:PackIcon WindowMinimize,Size=10}" Padding="0" Name="MinimizeButton"/>
+                <Button Style="{DynamicResource MaterialDesignFlatButton}" Height="35" Width="35" Content="{materialDesign:PackIcon CropSquare}" Padding="0" Name="MaximizeButton"/>
+                <Button Style="{DynamicResource MaterialDesignFlatButton}" Height="35" Width="35" Content="{materialDesign:PackIcon Close}" Padding="0" Name="CloseButton"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
